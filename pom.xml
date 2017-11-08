@@ -21,7 +21,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.vilt</groupId>
+  <groupId>com.github.jpmsilva</groupId>
   <artifactId>pom-properties-maven-plugin</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
