@@ -22,7 +22,7 @@
 
   <groupId>com.github.jpmsilva.ppmp</groupId>
   <artifactId>pom-properties-maven-plugin</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
+  <version>0.0.1</version>
 
   <name>Project Properties Maven Plugin</name>
   <description>Maven plugin that allows importing properties defined in dependencies</description>
