@@ -41,24 +41,47 @@ import org.apache.maven.project.ProjectBuildingException;
 import org.apache.maven.project.ProjectBuildingResult;
 import org.apache.maven.repository.RepositorySystem;
 
+/**
+ * Reads properties stored in dependencies and imports them into the scope of the project running this mojo.
+ *
+ * @author Joao Silva
+ */
 @Mojo(name = "read-dependency-pom", defaultPhase = INITIALIZE, threadSafe = true, requiresDependencyResolution = COMPILE_PLUS_RUNTIME, requiresDependencyCollection = COMPILE_PLUS_RUNTIME)
 public class ReadDependencyPomMojo extends AbstractMojo {
 
+  /**
+   * The repository system, used to resolve dependencies.
+   */
   @Component
   private RepositorySystem repositorySystem;
 
+  /**
+   * The project builder, used to resolve the model of the dependencies.
+   */
   @Component
   private ProjectBuilder projectBuilder;
 
+  /**
+   * The Maven project.
+   */
   @Parameter(defaultValue = "${project}", readonly = true, required = true)
   private MavenProject project;
 
+  /**
+   * The list of dependencies from which to load properties.
+   */
   @Parameter(property = "dependencies")
   private List<Dependency> dependencies = Collections.emptyList();
 
+  /**
+   * The Maven session.
+   */
   @Parameter(defaultValue = "${session}", readonly = true)
   private MavenSession mavenSession;
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void execute() throws MojoExecutionException, MojoFailureException {
     Validate.notNull(repositorySystem);

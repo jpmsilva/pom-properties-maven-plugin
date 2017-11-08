@@ -21,7 +21,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.github.jpmsilva</groupId>
+  <groupId>com.github.jpmsilva.ppmp</groupId>
   <artifactId>pom-properties-maven-plugin</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
@@ -59,18 +59,38 @@
 
   <developers>
     <developer>
-      <email>joao.p.m.silva@gmail.com</email>
-      <name>Joao Silva</name>
-      <url>https://jpmsilva.github.io/</url>
       <id>jpmsilva</id>
+      <name>Joao Silva</name>
+      <email>joao.p.m.silva@gmail.com</email>
+      <url>https://jpmsilva.github.io/</url>
+      <timezone>Europe/Lisbon</timezone>
     </developer>
   </developers>
 
   <properties>
     <maven.version>3.5.2</maven.version>
     <java.version>1.7</java.version>
+
+    <!-- Plugin version -->
+    <plugin.compiler.version>3.7.0</plugin.compiler.version>
+    <plugin.jar.version>3.0.2</plugin.jar.version>
+    <plugin.plugin.version>3.5</plugin.plugin.version>
+    <plugin.deploy.version>2.8.2</plugin.deploy.version>
+    <plugin.jgitflow.version>1.0-m5.1</plugin.jgitflow.version>
+    <plugin.nexus-staging.version>1.6.8</plugin.nexus-staging.version>
+    <plugin.gpg.version>1.6</plugin.gpg.version>
+    <plugin.source.version>3.0.1</plugin.source.version>
+    <plugin.javadoc.version>3.0.0-M1</plugin.javadoc.version>
+
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
 
   <dependencies>
     <dependency>
@@ -92,41 +112,183 @@
   </dependencies>
 
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${plugin.compiler.version}</version>
+          <configuration>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>${plugin.jar.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-plugin-plugin</artifactId>
+          <version>${plugin.plugin.version}</version>
+          <configuration>
+            <goalPrefix>pom-properties</goalPrefix>
+            <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.sonatype.plugins</groupId>
+          <artifactId>nexus-staging-maven-plugin</artifactId>
+          <version>${plugin.nexus-staging.version}</version>
+          <extensions>true</extensions>
+          <configuration>
+            <serverId>ossrh</serverId>
+            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>${plugin.deploy.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>external.atlassian.jgitflow</groupId>
+          <artifactId>jgitflow-maven-plugin</artifactId>
+          <version>${plugin.jgitflow.version}</version>
+          <configuration>
+            <flowInitContext>
+              <masterBranchName>master</masterBranchName>
+              <developBranchName>development</developBranchName>
+              <featureBranchPrefix>feature-</featureBranchPrefix>
+              <releaseBranchPrefix>release-</releaseBranchPrefix>
+              <hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
+              <versionTagPrefix>version-</versionTagPrefix>
+            </flowInitContext>
+            <noDeploy>false</noDeploy>
+            <squash>false</squash>
+            <scmCommentPrefix>[RELEASE]</scmCommentPrefix>
+            <autoVersionSubmodules>true</autoVersionSubmodules>
+            <pushReleases>true</pushReleases>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>${plugin.gpg.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>${plugin.source.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${plugin.javadoc.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.7.0</version>
-        <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-        </configuration>
+        <artifactId>maven-jar-plugin</artifactId>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
-        <version>3.5</version>
         <executions>
           <execution>
-            <id>mojo-descriptor</id>
+            <id>generate-descriptor</id>
             <goals>
               <goal>descriptor</goal>
             </goals>
           </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.plexus</groupId>
-        <artifactId>plexus-maven-plugin</artifactId>
-        <version>1.3.8</version>
-        <executions>
           <execution>
+            <id>generated-helpmojo</id>
             <goals>
-              <goal>descriptor</goal>
+              <goal>helpmojo</goal>
             </goals>
           </execution>
         </executions>
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>release-profile</id>
+      <activation>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <extensions>true</extensions>
+          </plugin>
+
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
