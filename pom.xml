@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
   Licensed to the Apache Software Foundation (ASF) under one
   or more contributor license agreements.  See the NOTICE file
@@ -17,12 +18,13 @@
   specific language governing permissions and limitations
   under the License.
 -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.github.jpmsilva.ppmp</groupId>
   <artifactId>pom-properties-maven-plugin</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
+  <version>0.0.1</version>
 
   <name>Project Properties Maven Plugin</name>
   <description>Maven plugin that allows importing properties defined in dependencies</description>
@@ -80,6 +82,7 @@
     <plugin.gpg.version>1.6</plugin.gpg.version>
     <plugin.source.version>3.0.1</plugin.source.version>
     <plugin.javadoc.version>3.0.0-M1</plugin.javadoc.version>
+    <plugin.project-info-reports.version>2.9</plugin.project-info-reports.version>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -158,6 +161,12 @@
         </plugin>
 
         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>${plugin.project-info-reports.version}</version>
+        </plugin>
+
+        <plugin>
           <groupId>external.atlassian.jgitflow</groupId>
           <artifactId>jgitflow-maven-plugin</artifactId>
           <version>${plugin.jgitflow.version}</version>
@@ -175,8 +184,6 @@
             <scmCommentPrefix>[RELEASE]</scmCommentPrefix>
             <autoVersionSubmodules>true</autoVersionSubmodules>
             <pushReleases>true</pushReleases>
-            <username>${scm.username}</username>
-            <username>${scm.password}</username>
           </configuration>
         </plugin>
 
@@ -184,13 +191,6 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-gpg-plugin</artifactId>
           <version>${plugin.gpg.version}</version>
-          <configuration>
-            <gpgArguments>
-              <gpgArgument>--batch</gpgArgument>
-              <gpgArgument>--pinentry-mode</gpgArgument>
-              <gpgArgument>loopback</gpgArgument>
-            </gpgArguments>
-          </configuration>
         </plugin>
 
         <plugin>
@@ -299,4 +299,28 @@
       </build>
     </profile>
   </profiles>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>index</report>
+              <report>cim</report>
+              <report>issue-tracking</report>
+              <report>license</report>
+              <report>scm</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>

@@ -1,5 +1,3 @@
-package io.github.jpmsilva.ppmp;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,6 +16,8 @@ package io.github.jpmsilva.ppmp;
  * specific language governing permissions and limitations
  * under the License.
  */
+
+package io.github.jpmsilva.ppmp;
 
 import static org.apache.maven.plugins.annotations.LifecyclePhase.INITIALIZE;
 import static org.apache.maven.plugins.annotations.ResolutionScope.COMPILE_PLUS_RUNTIME;

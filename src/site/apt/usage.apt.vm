@@ -1,0 +1,78 @@
+ -----
+ Usage
+ -----
+ Joao Silva
+ -----
+ 2017-11-07
+ -----
+
+~~ Licensed to the Apache Software Foundation (ASF) under one
+~~ or more contributor license agreements.  See the NOTICE file
+~~ distributed with this work for additional information
+~~ regarding copyright ownership.  The ASF licenses this file
+~~ to you under the Apache License, Version 2.0 (the
+~~ "License"); you may not use this file except in compliance
+~~ with the License.  You may obtain a copy of the License at
+~~
+~~   http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing,
+~~ software distributed under the License is distributed on an
+~~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~~ KIND, either express or implied.  See the License for the
+~~ specific language governing permissions and limitations
+~~ under the License.
+
+~~ NOTE: For help with the syntax of this file, see:
+~~ http://maven.apache.org/doxia/references/apt-format.html
+
+Usage
+
+  The plugin provides one single goal:
+
+  * <<<read-dependency-pom>>>: import properties from specified dependencies.
+
+   []
+
+  Each goal is further described below.
+
+* Importing properties
+
+  To import properties from dependencies add the plugin to your project's <<<pom.xml>>>:
+
+---
+<build>
+  ...
+  <plugins>
+    ...
+    <plugin>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>${project.artifactId}</artifactId>
+      <version>${project.version}</version>
+      <executions>
+        <execution>
+          <phase>initialize</phase>
+          <goals>
+            <goal>read-dependency-pom</goal>
+          </goals>
+        </execution>
+      </executions>
+      <configuration>
+        <dependencies>
+          <dependency>
+            <groupId>groupId</groupId>
+            <artifactId>artifactId</artifactId>
+            <version>version</version>
+          </dependency>
+        </dependencies>
+      </configuration>
+    </plugin>
+    ...
+  </plugins>
+  ...
+</build>
+---
+
+  This configuration allows importing properties defined in <<<groupId:artifactId:version>>> into your own project.
+  Property placeholders such as <<<$\{variable}>>> will be recursively resolved, and the dependency tree of the referred artifacts should
+  be checked for proper resolution.
