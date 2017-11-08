@@ -175,6 +175,8 @@
             <scmCommentPrefix>[RELEASE]</scmCommentPrefix>
             <autoVersionSubmodules>true</autoVersionSubmodules>
             <pushReleases>true</pushReleases>
+            <username>${scm.username}</username>
+            <username>${scm.password}</username>
           </configuration>
         </plugin>
 
