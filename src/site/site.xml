@@ -33,6 +33,7 @@
     <menu name="Examples">
       <item name="Import Spring Boot BOM properties" href="examples/import-spring-boot-bom.html"/>
     </menu>
+    <menu ref="reports"/>
   </body>
   <skin>
     <groupId>org.apache.maven.skins</groupId>

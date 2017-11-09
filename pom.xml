@@ -56,7 +56,7 @@
   <scm>
     <url>https://github.com/jpmsilva/pom-properties-maven-plugin</url>
     <connection>scm:git:https://github.com/jpmsilva/pom-properties-maven-plugin.git</connection>
-    <developerConnection>scm:git:https@github.com:jpmsilva/pom-properties-maven-plugin.git</developerConnection>
+    <developerConnection>scm:git:https://github.com/jpmsilva/pom-properties-maven-plugin.git</developerConnection>
   </scm>
 
   <developers>
@@ -64,7 +64,7 @@
       <id>jpmsilva</id>
       <name>Joao Silva</name>
       <email>joao.p.m.silva@gmail.com</email>
-      <url>https://jpmsilva.github.io/</url>
+      <url>https://github.com/jpmsilva</url>
       <timezone>Europe/Lisbon</timezone>
     </developer>
   </developers>
@@ -356,10 +356,12 @@
           <reportSet>
             <reports>
               <report>index</report>
-              <report>cim</report>
+              <report>dependencies</report>
+              <report>project-team</report>
               <report>issue-tracking</report>
               <report>license</report>
               <report>scm</report>
+              <report>distribution-management</report>
             </reports>
           </reportSet>
         </reportSets>
