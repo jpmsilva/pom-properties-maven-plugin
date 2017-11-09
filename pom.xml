@@ -34,7 +34,7 @@
 
   <inceptionYear>2017</inceptionYear>
 
-  <url>https://jpmsilva.github.io/pom-properties-maven-plugin-site</url>
+  <url>https://jpmsilva.github.io/pom-properties-maven-plugin-site/</url>
 
   <issueManagement>
     <url>https://github.com/jpmsilva/pom-properties-maven-plugin/issues</url>
@@ -161,11 +161,10 @@
           <configuration>
             <server>github</server>
             <message>New site version: ${project.version}</message>
-            <merge>true</merge>
+            <merge>false</merge>
             <repositoryOwner>jpmsilva</repositoryOwner>
             <repositoryName>pom-properties-maven-plugin-site</repositoryName>
-            <branch>master</branch>
-            <path>/</path>
+            <branch>refs/heads/master</branch>
             <includes>
               <include>**/*</include>
             </includes>
